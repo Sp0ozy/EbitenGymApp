@@ -78,15 +78,15 @@ func NewContainer(x, y, w, h int, el []element) container {
 		box:      ebiten.NewImage(w, h),
 	}
 }
-func NewList(x, y, w, h, space int, scroll float64, el []element) list {
+func NewList(x, y, w, h, space int, scroll float64, el []container) list {
 	return list{
-		posX:   x,
-		posY:   y,
-		sizeX:  w,
-		sizeY:  h,
-		spacer: space,
-		offset: scroll,
-		data:   el,
+		posX:     x,
+		posY:     y,
+		sizeX:    w,
+		sizeY:    h,
+		spacer:   space,
+		offset:   scroll,
+		elements: el,
 	}
 }
 func NewButton(x, y, w, h, dir int, p1, p2, p3 string) button {

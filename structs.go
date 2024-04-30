@@ -68,13 +68,16 @@ type (
 		direction    int
 	}
 	list struct {
-		data         []element
+		box          *ebiten.Image
+		elements     []container
 		posX, posY   int
 		sizeX, sizeY int
 		spacer       int
 		offset       float64
 	}
 	element interface {
+		pos() (int, int)
+		size() (int, int)
 		draw(screen *ebiten.Image)
 		update(cnd, posX, posY int) int
 	}

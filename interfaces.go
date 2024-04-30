@@ -6,6 +6,12 @@ import (
 )
 
 // BUTTON
+func (b *button) pos() (int, int) {
+	return b.posX, b.posY
+}
+func (b *button) size() (int, int) {
+	return b.sizeX, b.sizeY
+}
 func (b *button) draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(float64(b.posX), float64(b.posY))
@@ -26,6 +32,12 @@ func (b *button) update(cnd, posX, posY int) int {
 }
 
 // CONTAINER
+func (c *container) pos() (int, int) {
+	return c.posX, c.posY
+}
+func (c *container) size() (int, int) {
+	return c.sizeX, c.sizeY
+}
 func (c *container) draw(screen *ebiten.Image) {
 	c.box = ebiten.NewImage(c.sizeX, c.sizeY)
 	for _, v := range c.elements {
@@ -45,3 +57,25 @@ func (c *container) update(cnd int, posX, posY int) int {
 	}
 	return cnd
 }
+
+// LIST
+// func (l *list) draw(screen *ebiten.Image) {
+// 	l.box = ebiten.NewImage(l.sizeX, l.sizeY)
+// 	for _, v := range l.elements {
+// 		if e
+// 		v.draw(l.box)
+// 	}
+// 	op := &ebiten.DrawImageOptions{}
+// 	op.GeoM.Translate(float64(c.posX), float64(c.posY))
+// 	screen.DrawImage(c.box, op)
+
+// }
+
+// func (l *list) update(cnd int, posX, posY int) int {
+// 	for _, v := range c.elements {
+// 		if value := v.update(cnd, c.posX+posX, c.posY+posY); value != cnd {
+// 			return value
+// 		}
+// 	}
+// 	return cnd
+// }
