@@ -17,9 +17,9 @@ func (a *app) drawHud(screen *ebiten.Image) {
 
 }
 func (a *app) updateHud() {
-	a.condition = a.apphud.profilePic.update(a.condition, 0, 0)
-	a.condition = a.apphud.home.update(a.condition, 0, 0)
-	a.condition = a.apphud.schedule.update(a.condition, 0, 0)
-	a.condition = a.apphud.tournaments.update(a.condition, 0, 0)
-	a.condition = a.apphud.progress.update(a.condition, 0, 0)
+	a.condition = a.apphud.profilePic.update(a.condition, 0, 0, 0, 0)
+	a.condition = a.apphud.home.update(a.condition, 0, 0, 0, 0)
+	a.condition = a.apphud.schedule.update(a.condition, 0, 0, 0, 0)
+	a.condition = a.apphud.tournaments.update(a.condition, 0, 0, 0, 0)
+	a.condition = a.apphud.progress.update(a.condition, 0, 0, 0, 0)
 }

@@ -60,11 +60,15 @@ func NewProgress() progress {
 	}
 }
 func NewWorkout() workout {
-	btn := NewButton(-10, -10, 51, 48, 0, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
-	btn2 := NewButton(70, 10, 51, 48, 0, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
+	btn := NewButton(0, 5, 51, 48, 1, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
+	btn2 := NewButton(70, 5, 51, 48, 1, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
+	cnt := NewContainer(0, -30, 360, 65, []element{&btn, &btn2})
+	cnt1 := NewContainer(0, 85, 360, 65, []element{&btn, &btn2})
+	cnt2 := NewContainer(0, 170, 360, 65, []element{&btn, &btn2})
+	cnt3 := NewContainer(0, 580, 360, 65, []element{&btn, &btn2})
 	return workout{
 		background: newImage("assets/background.png"),
-		exercises:  NewContainer(17, 145, 360, 65, []element{&btn, &btn2}),
+		exercises:  NewList(17, 145, 360, 612, 0, 0, []element{&cnt, &cnt1, &cnt2, &cnt3}),
 		// exercises:  NewList(17, 145, 360, 65, 20, 0, nil),
 	}
 }
@@ -78,7 +82,7 @@ func NewContainer(x, y, w, h int, el []element) container {
 		box:      ebiten.NewImage(w, h),
 	}
 }
-func NewList(x, y, w, h, space int, scroll float64, el []container) list {
+func NewList(x, y, w, h, space int, scroll float64, el []element) list {
 	return list{
 		posX:     x,
 		posY:     y,

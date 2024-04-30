@@ -50,7 +50,7 @@ type (
 	}
 	workout struct {
 		background *ebiten.Image
-		exercises  container
+		exercises  list
 	}
 	container struct {
 		box          *ebiten.Image
@@ -69,16 +69,17 @@ type (
 	}
 	list struct {
 		box          *ebiten.Image
-		elements     []container
+		elements     []element
 		posX, posY   int
 		sizeX, sizeY int
 		spacer       int
 		offset       float64
 	}
 	element interface {
+		offset(f float64)
 		pos() (int, int)
 		size() (int, int)
 		draw(screen *ebiten.Image)
-		update(cnd, posX, posY int) int
+		update(cnd, posX, posY, upperMargin, lowerMargin int) int
 	}
 )
