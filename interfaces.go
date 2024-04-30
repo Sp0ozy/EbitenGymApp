@@ -27,13 +27,14 @@ func (b *button) update(cnd, posX, posY int) int {
 
 // CONTAINER
 func (c *container) draw(screen *ebiten.Image) {
-	c.box = nil
+	c.box = ebiten.NewImage(c.sizeX, c.sizeY)
 	for _, v := range c.elements {
-		v.draw(screen)
+		v.draw(c.box)
 	}
-	// op := &ebiten.DrawImageOptions{}
-	// op.GeoM.Translate(float64(btn.posX), float64(btn.posY))
-	// screen.DrawImage(btn.image[btn.state], op)
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(c.posX), float64(c.posY))
+	screen.DrawImage(c.box, op)
+
 }
 
 func (c *container) update(cnd int, posX, posY int) int {

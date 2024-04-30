@@ -75,6 +75,7 @@ func NewContainer(x, y, w, h int, el []element) container {
 		sizeX:    w,
 		sizeY:    h,
 		elements: el,
+		box:      ebiten.NewImage(w, h),
 	}
 }
 func NewList(x, y, w, h, space int, scroll float64, el []element) list {
