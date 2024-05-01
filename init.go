@@ -2,9 +2,12 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
 )
 
 func NewApp() *app {
@@ -60,26 +63,37 @@ func NewProgress() progress {
 	}
 }
 func NewWorkout() workout {
-	btn := NewButton(0, 5, 51, 48, 1, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
-	btn2 := NewButton(70, 5, 51, 48, 1, "assets/homedef.png", "assets/homehover.png", "assets/homeclicked.png")
-	cnt := NewContainer(0, -30, 360, 65, []element{&btn, &btn2})
-	cnt1 := NewContainer(0, 85, 360, 65, []element{&btn, &btn2})
-	cnt2 := NewContainer(0, 170, 360, 65, []element{&btn, &btn2})
-	cnt3 := NewContainer(0, 580, 360, 65, []element{&btn, &btn2})
+	btn := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn1 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn2 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn3 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn4 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn5 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn6 := NewButton(197, 16, 88, 33, 1, "assets/settingsdef.png", "assets/settingshover.png", "assets/settingsclicked.png")
+	btn7 := NewTickButton(304, 13, 88, 33, 1, "assets/tickbuttondef.png", "assets/tickbuttonhover.png", "assets/2tickbuttondef.png", "assets/2tickbuttonhover.png", false)
+	text := NewTextBox(10, 25, 180, 14, "Chest dip", newFont("fonts/Roboto-Light.ttf", 16, 96))
+	cnt := NewContainer(0, 0, 360, 65, "assets/conatinerbg.png", []element{&btn, &btn7, &text})
+	cnt1 := NewContainer(0, 85, 360, 65, "assets/conatinerbg.png", []element{&btn1, &btn7, &text})
+	cnt2 := NewContainer(0, 170, 360, 65, "assets/conatinerbg.png", []element{&btn2, &btn7})
+	cnt3 := NewContainer(0, 255, 360, 65, "assets/conatinerbg.png", []element{&btn3, &btn7})
+	cnt4 := NewContainer(0, 340, 360, 65, "assets/conatinerbg.png", []element{&btn4, &btn7, &text})
+	cnt5 := NewContainer(0, 425, 360, 65, "assets/conatinerbg.png", []element{&btn5, &btn7})
+	cnt6 := NewContainer(0, 510, 360, 65, "assets/conatinerbg.png", []element{&btn6, &btn7})
 	return workout{
 		background: newImage("assets/background.png"),
-		exercises:  NewList(17, 145, 360, 612, 0, 0, []element{&cnt, &cnt1, &cnt2, &cnt3}),
+		exercises:  NewList(17, 145, 360, 612, 0, 0, []element{&cnt, &cnt1, &cnt2, &cnt3, &cnt4, &cnt5, &cnt6}),
 		// exercises:  NewList(17, 145, 360, 65, 20, 0, nil),
 	}
 }
-func NewContainer(x, y, w, h int, el []element) container {
+func NewContainer(x, y, w, h int, root string, el []element) container {
 	return container{
-		posX:     x,
-		posY:     y,
-		sizeX:    w,
-		sizeY:    h,
-		elements: el,
-		box:      ebiten.NewImage(w, h),
+		posX:       x,
+		posY:       y,
+		sizeX:      w,
+		sizeY:      h,
+		elements:   el,
+		background: newImage(root),
+		box:        ebiten.NewImage(w, h),
 	}
 }
 func NewList(x, y, w, h, space int, scroll float64, el []element) list {
@@ -91,6 +105,17 @@ func NewList(x, y, w, h, space int, scroll float64, el []element) list {
 		spacer:   space,
 		offset:   scroll,
 		elements: el,
+	}
+
+}
+func NewTextBox(x, y, w, h int, content string, f font.Face) textbox {
+	return textbox{
+		posX:  x,
+		posY:  y,
+		sizeX: w,
+		sizeY: h,
+		text:  content,
+		font:  f,
 	}
 }
 func NewButton(x, y, w, h, dir int, p1, p2, p3 string) button {
@@ -105,6 +130,18 @@ func NewButton(x, y, w, h, dir int, p1, p2, p3 string) button {
 	}
 
 }
+func NewTickButton(x, y, w, h, dir int, p1, p2, p3, p4 string, t bool) tickbutton {
+	return tickbutton{
+		state: 0,
+		image: [4]*ebiten.Image{newImage(p1), newImage(p2), newImage(p3), newImage(p4)},
+		posX:  x,
+		posY:  y,
+		sizeX: w,
+		sizeY: h,
+		tick:  false,
+	}
+
+}
 func newImage(name string) *ebiten.Image {
 	rect, _, err := ebitenutil.NewImageFromFile(name)
 	if err != nil {
@@ -112,4 +149,25 @@ func newImage(name string) *ebiten.Image {
 	}
 
 	return rect
+}
+
+func newFont(name string, size, dpi float64) font.Face {
+	fontBytes, err := os.ReadFile(name)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tt, err := opentype.Parse(fontBytes)
+	if err != nil {
+		log.Fatal(err)
+	}
+	font, err := opentype.NewFace(tt, &opentype.FaceOptions{
+		Size:    size,
+		DPI:     dpi,
+		Hinting: font.HintingFull,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	return font
 }

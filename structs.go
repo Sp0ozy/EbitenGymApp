@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"golang.org/x/image/font"
 )
 
 const (
@@ -57,15 +58,31 @@ type (
 		elements     []element
 		posX, posY   int
 		sizeX, sizeY int
+		background   *ebiten.Image
 	}
+	textbox struct {
+		posX, posY   int
+		sizeX, sizeY int
+		text         string
+		font         font.Face
+	}
+
 	/* Field button has 3 states( default, hover, clicked), 3 images to support those stages,
 	position on X and Y axis, Horizontal and Vertical size, direction to which butoon changes the game if clicked. */
+
 	button struct {
 		state        int
 		image        [3]*ebiten.Image
 		posX, posY   int
 		sizeX, sizeY int
 		direction    int
+	}
+	tickbutton struct {
+		state        int
+		image        [4]*ebiten.Image
+		posX, posY   int
+		sizeX, sizeY int
+		tick         bool
 	}
 	list struct {
 		box          *ebiten.Image
