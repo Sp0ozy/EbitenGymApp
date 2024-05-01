@@ -52,6 +52,7 @@ type (
 	workout struct {
 		background *ebiten.Image
 		exercises  list
+		plus       button
 	}
 	container struct {
 		box          *ebiten.Image
@@ -97,6 +98,6 @@ type (
 		pos() (int, int)
 		size() (int, int)
 		draw(screen *ebiten.Image)
-		update(cnd, posX, posY, upperMargin, lowerMargin int) int
+		update(cnd, posX, posY, upperMargin, lowerMargin, offset int) int
 	}
 )

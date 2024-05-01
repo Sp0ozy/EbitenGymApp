@@ -79,9 +79,12 @@ func NewWorkout() workout {
 	cnt4 := NewContainer(0, 340, 360, 65, "assets/conatinerbg.png", []element{&btn4, &btn7, &text})
 	cnt5 := NewContainer(0, 425, 360, 65, "assets/conatinerbg.png", []element{&btn5, &btn7})
 	cnt6 := NewContainer(0, 510, 360, 65, "assets/conatinerbg.png", []element{&btn6, &btn7})
+	cnt7 := NewContainer(0, 595, 360, 65, "assets/conatinerbg.png", []element{&btn3, &btn7})
+	cnt8 := NewContainer(0, 680, 360, 65, "assets/conatinerbg.png", []element{&btn3, &btn7})
 	return workout{
 		background: newImage("assets/background.png"),
-		exercises:  NewList(17, 145, 360, 612, 0, 0, []element{&cnt, &cnt1, &cnt2, &cnt3, &cnt4, &cnt5, &cnt6}),
+		exercises:  NewList(17, 145, 360, 612, 20, 0, []element{&cnt, &cnt1, &cnt2, &cnt3, &cnt4, &cnt5, &cnt6, &cnt7, &cnt8}),
+		plus:       NewButton(302, 660, 75, 75, 1, "assets/plusIcondef.png", "assets/plusIconhover.png", "assets/plusIconclicked.png"),
 		// exercises:  NewList(17, 145, 360, 65, 20, 0, nil),
 	}
 }

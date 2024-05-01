@@ -29,7 +29,7 @@ func (t *textbox) draw(screen *ebiten.Image) {
 	text.Draw(screen, t.text, t.font, t.posX, t.posY+t.sizeY, color.RGBA{0xDB, 0xDB, 0xDB, 0xff})
 }
 
-func (t *textbox) update(cnd, posX, posY, upperMargin, lowerMargin int) int {
+func (t *textbox) update(cnd, posX, posY, upperMargin, lowerMargin, offset int) int {
 	return cnd
 }
 
@@ -50,9 +50,9 @@ func (b *button) draw(screen *ebiten.Image) {
 }
 
 // PosY+LowerMargin+b.PosY+
-func (b *button) update(cnd, posX, posY, upperMargin, lowerMargin int) int {
+func (b *button) update(cnd, posX, posY, upperMargin, lowerMargin, offset int) int {
 	x, y := ebiten.CursorPosition()
-	if x > b.posX+posX && x < b.posX+posX+b.sizeX && y > posY+abs(upperMargin-b.posY) && y < b.posY+posY+b.sizeY-lowerMargin {
+	if x > b.posX+posX && x < b.posX+posX+b.sizeX && y > posY+offset+abs(upperMargin-b.posY) && y < b.posY+offset+posY+b.sizeY-lowerMargin {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButton0) {
 			b.state = clicked
 			return b.direction
@@ -86,9 +86,9 @@ func (b *tickbutton) draw(screen *ebiten.Image) {
 }
 
 // PosY+LowerMargin+b.PosY+
-func (b *tickbutton) update(cnd, posX, posY, upperMargin, lowerMargin int) int {
+func (b *tickbutton) update(cnd, posX, posY, upperMargin, lowerMargin, offset int) int {
 	x, y := ebiten.CursorPosition()
-	if x > b.posX+posX && x < b.posX+posX+b.sizeX && y > posY+abs(upperMargin-b.posY) && y < b.posY+posY+b.sizeY-lowerMargin {
+	if x > b.posX+posX && x < b.posX+posX+b.sizeX && y > posY+offset+abs(upperMargin-b.posY) && y < b.posY+offset+posY+b.sizeY-lowerMargin {
 		if inpututil.IsMouseButtonJustPressed(ebiten.MouseButton0) {
 			b.tick = !b.tick
 		}
@@ -122,9 +122,9 @@ func (c *container) draw(screen *ebiten.Image) {
 
 }
 
-func (c *container) update(cnd, posX, posY, upperMargin, lowerMargin int) int {
+func (c *container) update(cnd, posX, posY, upperMargin, lowerMargin, offset int) int {
 	for i := range c.elements {
-		value := c.elements[i].update(cnd, c.posX+posX, c.posY+posY, upperMargin, lowerMargin)
+		value := c.elements[i].update(cnd, c.posX+posX, c.posY+posY, upperMargin, lowerMargin, offset)
 		if value != cnd {
 			return value
 		}
@@ -142,7 +142,7 @@ func (l *list) draw(screen *ebiten.Image) {
 		if (pY+sY > 0) && (pY < l.sizeY) {
 			v.draw(l.box)
 		}
-
+		v.offset(-l.offset)
 	}
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(float64(l.posX), float64(l.posY))
@@ -152,7 +152,13 @@ func (l *list) draw(screen *ebiten.Image) {
 
 func (l *list) update(cnd int, posX, posY int) int {
 	_, y := ebiten.Wheel()
-	l.offset = y * 40
+	l.offset += y * 40
+	if int(l.offset) < -((len(l.elements)*65+len(l.elements)*l.spacer-l.spacer)-l.sizeY)-100 {
+		l.offset = float64(-((len(l.elements)*65 + len(l.elements)*l.spacer - l.spacer) - l.sizeY) - 100)
+	}
+	if l.offset > 0 {
+		l.offset = 0
+	}
 	for i := range l.elements {
 		_, pY := l.elements[i].pos()
 		_, sY := l.elements[i].size()
@@ -164,7 +170,7 @@ func (l *list) update(cnd int, posX, posY int) int {
 			lowerMargin = sY - (l.sizeY - pY)
 
 		}
-		value := l.elements[i].update(cnd, l.posX+posX, l.posY+posY, upperMargin, lowerMargin)
+		value := l.elements[i].update(cnd, l.posX+posX, l.posY+posY, upperMargin, lowerMargin, int(l.offset))
 		if value != cnd {
 			return value
 		}
