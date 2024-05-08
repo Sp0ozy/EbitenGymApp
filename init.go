@@ -56,15 +56,15 @@ func NewAddExercise() settings {
 		background: newImage("assets/settingsbg.png"),
 		save:       NewButton(213, 680, 140, 45, 4, "assets/save0.png", "assets/save1.png", "assets/save2.png"),
 		exit:       NewButton(40, 680, 140, 45, 4, "assets/exit0.png", "assets/exit1.png", "assets/exit2.png"),
-		weight:     textinput{57, 526, 280, 20, false, true, "Login or email", "80", newFont("fonts/Roboto-Light.ttf", 16, 96)},
-		sets:       textinput{57, 605, 280, 20, false, true, "Login or email", "4", newFont("fonts/Roboto-Light.ttf", 16, 96)},
-		reps:       textinput{57, 447, 280, 20, false, true, "Login or email", "8", newFont("fonts/Roboto-Light.ttf", 16, 96)},
+		weight:     textinput{57, 526, 280, 20, false, true, "Weight", "80", newFont("fonts/Roboto-Light.ttf", 16, 96)},
+		sets:       textinput{57, 605, 280, 20, false, true, "Sets", "4", newFont("fonts/Roboto-Light.ttf", 16, 96)},
+		reps:       textinput{57, 447, 280, 20, false, true, "Repetitions", "8", newFont("fonts/Roboto-Light.ttf", 16, 96)},
 	}
 }
 func NewSignUp() signUp {
 	return signUp{
 		background: newImage("assets/signupbg.png"),
-		login:      textinput{57, 288, 280, 20, false, true, "Login or email", "", newFont("fonts/Roboto-Light.ttf", 16, 96)},
+		login:      textinput{57, 288, 280, 20, false, true, "Login", "", newFont("fonts/Roboto-Light.ttf", 16, 96)},
 		password:   textinput{57, 525, 280, 20, false, false, "Password", "", newFont("fonts/Roboto-Light.ttf", 16, 96)},
 		email:      textinput{57, 367, 280, 20, false, true, "Email", "", newFont("fonts/Roboto-Light.ttf", 16, 96)},
 		name:       textinput{57, 446, 280, 20, false, true, "Name", "", newFont("fonts/Roboto-Light.ttf", 16, 96)},
