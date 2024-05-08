@@ -29,9 +29,19 @@ func (a *app) Update() error {
 		a.updateProfile()
 		a.updateHud()
 	case 6:
+		a.updateSignIn()
+	case 7:
 		a.updateSignUp()
+	case 8:
+		a.updateExercises()
+		a.updateHud()
+	case 9:
+		a.updateInfo()
+		a.updateHud()
+	case 10:
+		a.updateEx()
+		a.updateHud()
 	}
-
 	return nil
 }
 
@@ -56,10 +66,19 @@ func (a *app) Draw(screen *ebiten.Image) {
 		a.drawProfile(screen)
 		a.drawHud(screen)
 	case 6:
+		a.drawSignIn(screen)
+	case 7:
 		a.drawSignUp(screen)
-
+	case 8:
+		a.drawExercises(screen)
+		a.drawHud(screen)
+	case 9:
+		a.drawInfo(screen)
+		a.drawHud(screen)
+	case 10:
+		a.drawEx(screen)
+		a.drawHud(screen)
 	}
-
 }
 
 func main() {

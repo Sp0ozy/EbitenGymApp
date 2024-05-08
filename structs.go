@@ -29,10 +29,19 @@ type (
 		apppr       progress
 		workoutplan workout
 		profile     prof
+		appIn       signIn
 		appUp       signUp
+		exercises   allexercises
+		benchPress  exInfo
+		addEx       settings
 		condition   int
 	}
 	signUp struct {
+		background                              *ebiten.Image
+		login, email, name, password, password2 textinput
+		signin, signup                          button
+	}
+	signIn struct {
 		background      *ebiten.Image
 		login, password textinput
 		signin, signup  button
@@ -65,6 +74,20 @@ type (
 		background *ebiten.Image
 		exercises  list
 		plus       button
+	}
+	allexercises struct {
+		background *ebiten.Image
+		exercises  list
+		search     textinput
+	}
+	exInfo struct {
+		background       *ebiten.Image
+		settings, delete button
+	}
+	settings struct {
+		background         *ebiten.Image
+		save, exit         button
+		reps, weight, sets textinput
 	}
 	container struct {
 		box          *ebiten.Image
