@@ -28,13 +28,25 @@ type (
 		apptr       tournament
 		apppr       progress
 		workoutplan workout
+		profile     prof
+		appUp       signUp
 		condition   int
 	}
+	signUp struct {
+		background      *ebiten.Image
+		login, password textinput
+		signin, signup  button
+	}
+
 	hud struct {
-		hudYP, lowerhud                                   *ebiten.Image
+		hudUP                                             []*ebiten.Image
+		lowerhud                                          *ebiten.Image
 		profilePic, home, schedule, tournaments, progress button
 	}
 	home struct {
+		background *ebiten.Image
+	}
+	prof struct {
 		background *ebiten.Image
 	}
 	schedule struct {
@@ -67,8 +79,17 @@ type (
 		text         string
 		font         font.Face
 	}
+	textinput struct {
+		posX, posY   int
+		sizeX, sizeY int
+		isActive     bool
+		showText     bool
+		defalut      string
+		text         string
+		font         font.Face
+	}
 
-	/* Field button has 3 states( default, hover, clicked), 3 images to support those stages,
+	/* Button has 3 states( default, hover, clicked), 3 images to support those stages,
 	position on X and Y axis, Horizontal and Vertical size, direction to which butoon changes the game if clicked. */
 
 	button struct {
@@ -78,6 +99,8 @@ type (
 		sizeX, sizeY int
 		direction    int
 	}
+	/* Tickbutton has 4 states( default, hover, clicked-default, clicked-default), 4 images to support those stages,
+	position on X and Y axis, Horizontal and Vertical size, direction to which butoon changes the game if clicked. */
 	tickbutton struct {
 		state        int
 		image        [4]*ebiten.Image
@@ -85,6 +108,7 @@ type (
 		sizeX, sizeY int
 		tick         bool
 	}
+	/* List provides functionality to store and output a slice of the elements and navigate through them by scrolling through. */
 	list struct {
 		box          *ebiten.Image
 		elements     []element
@@ -93,6 +117,7 @@ type (
 		spacer       int
 		offset       float64
 	}
+
 	element interface {
 		offset(f float64)
 		pos() (int, int)

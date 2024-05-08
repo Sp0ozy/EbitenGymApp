@@ -5,7 +5,7 @@ import (
 )
 
 func (a *app) drawHud(screen *ebiten.Image) {
-	screen.DrawImage(a.apphud.hudYP, nil)
+	screen.DrawImage(a.apphud.hudUP[a.condition], nil)
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 757)
 	screen.DrawImage(a.apphud.lowerhud, op)

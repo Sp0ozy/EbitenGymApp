@@ -16,7 +16,6 @@ func (a *app) Update() error {
 	case 1:
 		a.updateSchedule()
 		a.updateHud()
-
 	case 2:
 		a.updateTournament()
 		a.updateHud()
@@ -26,6 +25,11 @@ func (a *app) Update() error {
 	case 4:
 		a.updateWorkout()
 		a.updateHud()
+	case 5:
+		a.updateProfile()
+		a.updateHud()
+	case 6:
+		a.updateSignUp()
 	}
 
 	return nil
@@ -48,6 +52,12 @@ func (a *app) Draw(screen *ebiten.Image) {
 	case 4:
 		a.drawWorkout(screen)
 		a.drawHud(screen)
+	case 5:
+		a.drawProfile(screen)
+		a.drawHud(screen)
+	case 6:
+		a.drawSignUp(screen)
+
 	}
 
 }
